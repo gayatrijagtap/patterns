@@ -106,6 +106,9 @@ const createFilledDiamond = function(height) {
   if(height%2==0) {
     height = height - 1;
   }
+  if(height<3) {
+    return "*";
+  }
   let firstHalf = filledFirstHalf(height);
   let secondHalf = filledSecondHalf(height);
   let result = firstHalf+secondHalf;
@@ -138,6 +141,9 @@ const createHollowDiamond = function(height) {
   if(height%2==0) {
     height = height - 1;
   }
+  if(height<3) {
+    return "*";
+  }
   let result = hollowFirstHalf(height)+hollowSecondHalf(height);
   return(result);
 }
@@ -169,6 +175,9 @@ const angledSecondHalf = function(height) {
 const createAngledDiamond = function(height) {
   if(height%2==0) {
     height = height - 1;
+  }
+  if(height<3) {
+    return "*";
   }
   let result = angledFirstHalf(height)+angledSecondHalf(height);
   return(result);
