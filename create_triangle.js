@@ -1,7 +1,11 @@
-const main = require('./src/patternsLib.js').draw_Triangle;
+const draw_Triangle = require('./src/patternsLib.js').draw_Triangle;
+const { getPatternInfo } = require('./src/patternsUtil.js');
 
-let type = process.argv[2];
-let height = +process.argv[3];
+const main = function() {
+  let userArgs = process.argv;
+  let patternInfo = getPatternInfo(userArgs);
+  console.log(draw_Triangle(patternInfo));
+}
 
-exports.main = main;
-console.log(main(type,height));
+main();
+exports.main = draw_Triangle;

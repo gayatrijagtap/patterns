@@ -1,21 +1,12 @@
-const genPattern = function(start,limit,character) {
-  let output = "";
-  while(start<limit) {
-    output=output+character;
-    start++;
-  }
-  return(output);
-}
-
-const joinLines = function(prev,current,seperator) {
-  return(prev+current+seperator);
-}
+const { generatePattern } = require('./patternsUtil.js');
+const { joinLines } = require('./patternsUtil.js');
+const { generateLine } = require('./patternsUtil.js');
 
 const createFilledRectangle = function(width,height) {
   let output = "";
   let heightLimit = 0;
   while(heightLimit<height) {
-    output=joinLines(output,genPattern(0,width,"*"),"\n");
+    output=joinLines(output,generatePattern(0,width,"*"),"\n");
     heightLimit++;
   }
   return(output);
@@ -24,14 +15,14 @@ const createFilledRectangle = function(width,height) {
 const createEmptyRectangle = function(width,height) {
   let output = "";
   let heightLimit=1;
-  output=joinLines(output,genPattern(0,width,"*"),"\n");
+  output=joinLines(output,generatePattern(0,width,"*"),"\n");
   heightLimit++;
   while(heightLimit<height) {
-    output=output+"*"+genPattern(1,width-1," ")+"*"+"\n"
+    output=output+"*"+generatePattern(1,width-1," ")+"*"+"\n"
     heightLimit++;
   }
   if(heightLimit <= height){
-    output=joinLines(output,genPattern(0,width,"*"),"");
+    output=joinLines(output,generatePattern(0,width,"*"),"");
   }
   return(output);
 }
@@ -40,10 +31,10 @@ const createAlternatingRectangle = function(width,height) {
   let output = "";
   let heightLimit = 1;
   while(heightLimit<=height) {
-    output=joinLines(output,genPattern(0,width,"*"),"\n");
+    output=joinLines(output,generatePattern(0,width,"*"),"\n");
     heightLimit++;
     if(heightLimit<=height) {
-      output=joinLines(output,genPattern(0,width,"-"),"\n");
+      output=joinLines(output,generatePattern(0,width,"-"),"\n");
       heightLimit++;
     }
   }
@@ -54,7 +45,7 @@ const createLeftTriangle=function(height) {
   let output="";
   for(let heightLimit=1; heightLimit<=height; heightLimit++) {
     let width=1;
-    output=output+genPattern(width,heightLimit+1,"*");
+    output=output+generatePattern(width,heightLimit+1,"*");
     output=output+"\n";
   }
   return(output);
@@ -65,28 +56,20 @@ const createRightTriangle=function(height) {
   for(let heightLimit=1; heightLimit<=height; heightLimit++) {
     let blanks=height-heightLimit;
     let width=heightLimit;
-    output=output+genPattern(1,blanks+1," ");
-    output=output+genPattern(1,width+1,"*");
+    output=output+generatePattern(1,blanks+1," ");
+    output=output+generatePattern(1,width+1,"*");
     output=output+"\n";
   }
   return(output);
-}
-
-const genLine = function(numOfChar,character) {
-  let result = "";
-  for(let charNum=0; charNum<numOfChar; charNum++) {
-    result = result+character;
-  }
-  return(result);
 }
 
 const filledFirstHalf = function(height) {
   let numOfSpaces = (height/2)-1;
   let result = "";
   for(let lineNum=1; lineNum<=height; lineNum+=2) {
-    result = result+genLine(numOfSpaces," ");
+    result = result+generateLine(numOfSpaces," ");
     numOfSpaces--;
-    result = result+genLine(lineNum,"*")+"\n";
+    result = result+generateLine(lineNum,"*")+"\n";
   }
   return(result);
 }
@@ -95,9 +78,9 @@ const filledSecondHalf = function(height) {
   let numOfSpaces = 1;
   let result = "";
   for(let lineNum=height-2; lineNum>0; lineNum-=2) {
-    result = result+genLine(numOfSpaces," ");
+    result = result+generateLine(numOfSpaces," ");
     numOfSpaces++;
-    result = result+genLine(lineNum,"*")+"\n";
+    result = result+generateLine(lineNum,"*")+"\n";
   }
   return(result);
 }
@@ -118,10 +101,10 @@ const createFilledDiamond = function(height) {
 const hollowFirstHalf = function(height) {
   let numOfSpaces = Math.ceil(height/2);
   let result = "";
-  result += genLine(numOfSpaces," ")+"*";
+  result += generateLine(numOfSpaces," ")+"*";
   for(let lineNum=1; lineNum<height; lineNum+=2) {
     numOfSpaces--;
-    result += "\n"+genLine(numOfSpaces," ")+"*"+genLine(lineNum," ")+"*";
+    result += "\n"+generateLine(numOfSpaces," ")+"*"+generateLine(lineNum," ")+"*";
   }
   return(result);
 }
@@ -130,10 +113,10 @@ const hollowSecondHalf = function(height) {
   let numOfSpaces = 2;
   let result = "";
   for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    result += "\n"+genLine(numOfSpaces," ")+"*"+genLine(lineNum," ")+"*";
+    result += "\n"+generateLine(numOfSpaces," ")+"*"+generateLine(lineNum," ")+"*";
     numOfSpaces++;
   }
-  result += "\n"+genLine(numOfSpaces," ")+"*";
+  result += "\n"+generateLine(numOfSpaces," ")+"*";
   return(result);
 }
 
@@ -151,13 +134,13 @@ const createHollowDiamond = function(height) {
 const angledFirstHalf = function(height) {
   let numOfSpaces = Math.ceil(height/2);
   let result = "";
-  result += genLine(numOfSpaces," ")+"*";
+  result += generateLine(numOfSpaces," ")+"*";
   for(let lineNum=1; lineNum<height-2; lineNum+=2) {
     numOfSpaces--;
-    result += "\n"+genLine(numOfSpaces," ")+"/"+genLine(lineNum," ")+"\\";
+    result += "\n"+generateLine(numOfSpaces," ")+"/"+generateLine(lineNum," ")+"\\";
   }
   numOfSpaces--;
-  result += "\n"+genLine(numOfSpaces," ")+"*"+genLine(height-2," ")+"*";
+  result += "\n"+generateLine(numOfSpaces," ")+"*"+generateLine(height-2," ")+"*";
   return(result);
 }
 
@@ -165,10 +148,10 @@ const angledSecondHalf = function(height) {
   let numOfSpaces = 2;
   let result = "";
   for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    result += "\n"+genLine(numOfSpaces," ")+"\\"+genLine(lineNum," ")+"/";
+    result += "\n"+generateLine(numOfSpaces," ")+"\\"+generateLine(lineNum," ")+"/";
     numOfSpaces++;
   }
-  result += "\n"+genLine(numOfSpaces," ")+"*";
+  result += "\n"+generateLine(numOfSpaces," ")+"*";
   return(result);
 }
 
@@ -183,7 +166,8 @@ const createAngledDiamond = function(height) {
   return(result);
 }
 
-const draw_Rectangle = function(type,height,width) {
+const draw_Rectangle = function(patternInfo) {
+  let {type,height,width} = patternInfo;
   let rectangleType = {};
   rectangleType['filled'] = createFilledRectangle(height,width);  rectangleType['empty'] = createEmptyRectangle(height,width);
   rectangleType['alternating'] = createAlternatingRectangle(height,width);
@@ -191,7 +175,9 @@ const draw_Rectangle = function(type,height,width) {
   return rectangleType[type];
 }
 
-const draw_Triangle = function(type,height) {
+const draw_Triangle = function(patternInfo) {
+  let {type,height} = patternInfo;
+
   let triangleType = {};
   triangleType['left'] = createLeftTriangle(height);
   triangleType['right'] = createRightTriangle(height);
@@ -199,7 +185,9 @@ const draw_Triangle = function(type,height) {
   return triangleType[type];
 }
 
-const draw_Diamond = function(type,height) {
+const draw_Diamond = function(patternInfo) {
+  let {type,height} = patternInfo;
+
   let diamondType = {};
   diamondType['filled'] = createFilledDiamond(height);
   diamondType['hollow'] = createHollowDiamond(height);
