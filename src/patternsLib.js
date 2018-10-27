@@ -58,24 +58,28 @@ const createRightTriangle=function(height) {
 
 const filledFirstHalf = function(height) {
   let numOfSpaces = (height/2)-1;
-  let result = "";
+  let diamond = [];
+  let index = 0;
   for(let lineNum=1; lineNum<=height; lineNum+=2) {
-    result = result+generateLine(numOfSpaces," ");
+    diamond[ index ] = generateLine(numOfSpaces," ");
     numOfSpaces--;
-    result = result+generateLine(lineNum,"*")+"\n";
+    diamond[ index ] = diamond[ index ].concat(generateLine(lineNum,"*"));
+    index++;
   }
-  return(result);
+  return diamond;
 }
 
 const filledSecondHalf = function(height) {
   let numOfSpaces = 1;
-  let result = "";
+  let diamond = [];
+  let index = 0;
   for(let lineNum=height-2; lineNum>0; lineNum-=2) {
-    result = result+generateLine(numOfSpaces," ");
+    diamond[index] = generateLine(numOfSpaces," ");
     numOfSpaces++;
-    result = result+generateLine(lineNum,"*")+"\n";
+    diamond[index] = diamond[index].concat(generateLine(lineNum,"*"));
+    index++;
   }
-  return(result);
+  return diamond;
 }
 
 const createFilledDiamond = function(height) {
@@ -85,32 +89,39 @@ const createFilledDiamond = function(height) {
   if(height<3) {
     return "*";
   }
-  let firstHalf = filledFirstHalf(height);
-  let secondHalf = filledSecondHalf(height);
-  let result = firstHalf+secondHalf;
-  return(result);
+  let diamond = filledFirstHalf(height);
+  let diamondSecondHalf = filledSecondHalf(height);
+  for( let index = 0; index<diamondSecondHalf.length; index++ ) {
+    diamond.push(diamondSecondHalf[index]);
+  }
+  return diamond;
 }
 
 const hollowFirstHalf = function(height) {
   let numOfSpaces = Math.ceil(height/2);
-  let result = "";
-  result += generateLine(numOfSpaces," ")+"*";
+  let diamond = [];
+  let index = 0;
+  diamond[index] = generateLine(numOfSpaces," ")+"*";
   for(let lineNum=1; lineNum<height; lineNum+=2) {
+    index++;
     numOfSpaces--;
-    result += "\n"+generateLine(numOfSpaces," ")+"*"+generateLine(lineNum," ")+"*";
+    diamond[ index ] = generateLine(numOfSpaces," ")+"*"+generateLine(lineNum," ")+"*";
   }
-  return(result);
+  return diamond;
 }
 
 const hollowSecondHalf = function(height) {
   let numOfSpaces = 2;
   let result = "";
+  let diamond = [];
+  let index = 0;
   for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    result += "\n"+generateLine(numOfSpaces," ")+"*"+generateLine(lineNum," ")+"*";
+    diamond[index] = generateLine(numOfSpaces," ")+"*"+generateLine(lineNum," ")+"*";
     numOfSpaces++;
+    index++;
   }
-  result += "\n"+generateLine(numOfSpaces," ")+"*";
-  return(result);
+  diamond[index] = generateLine(numOfSpaces," ")+"*";
+  return diamond;
 }
 
 const createHollowDiamond = function(height) {
@@ -120,32 +131,41 @@ const createHollowDiamond = function(height) {
   if(height<3) {
     return "*";
   }
-  let result = hollowFirstHalf(height)+hollowSecondHalf(height);
-  return(result);
+  let diamond = hollowFirstHalf(height);
+  let diamondSecondHalf = hollowSecondHalf(height);
+  for (let index = 0; index<diamondSecondHalf.length; index++) {
+    diamond.push(diamondSecondHalf[index]);
+  }
+  return diamond;
 }
 
 const angledFirstHalf = function(height) {
   let numOfSpaces = Math.ceil(height/2);
-  let result = "";
-  result += generateLine(numOfSpaces," ")+"*";
+  let diamond = [];
+  let index = 0;
+  diamond[index] = generateLine(numOfSpaces," ")+"*";
   for(let lineNum=1; lineNum<height-2; lineNum+=2) {
     numOfSpaces--;
-    result += "\n"+generateLine(numOfSpaces," ")+"/"+generateLine(lineNum," ")+"\\";
+    index++;
+    diamond[index] = generateLine(numOfSpaces," ")+"/"+generateLine(lineNum," ")+"\\";
   }
   numOfSpaces--;
-  result += "\n"+generateLine(numOfSpaces," ")+"*"+generateLine(height-2," ")+"*";
-  return(result);
+  diamond[index+1] = generateLine(numOfSpaces," ")+"*"+generateLine(height-2," ")+"*";
+  return diamond;
 }
 
 const angledSecondHalf = function(height) {
   let numOfSpaces = 2;
   let result = "";
+  let diamond = [];
+  let index = 0;
   for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    result += "\n"+generateLine(numOfSpaces," ")+"\\"+generateLine(lineNum," ")+"/";
+    diamond[index] = generateLine(numOfSpaces," ")+"\\"+generateLine(lineNum," ")+"/";
     numOfSpaces++;
+    index++;
   }
-  result += "\n"+generateLine(numOfSpaces," ")+"*";
-  return(result);
+  diamond[index] = generateLine(numOfSpaces," ")+"*";
+  return diamond;
 }
 
 const createAngledDiamond = function(height) {
@@ -155,8 +175,12 @@ const createAngledDiamond = function(height) {
   if(height<3) {
     return "*";
   }
-  let result = angledFirstHalf(height)+angledSecondHalf(height);
-  return(result);
+  let diamond = angledFirstHalf(height);
+  let diamondSecondHalf = angledSecondHalf(height);
+  for (let index = 0; index<diamondSecondHalf.length; index++) {
+    diamond.push(diamondSecondHalf[index]);
+  }
+  return diamond;
 }
 
 const draw_Rectangle = function(patternInfo) {
@@ -188,8 +212,13 @@ const draw_Diamond = function(patternInfo) {
   diamondType['filled'] = createFilledDiamond(height);
   diamondType['hollow'] = createHollowDiamond(height);
   diamondType['angled'] = createAngledDiamond(height);
-
-  return diamondType[type];
+  let array = diamondType[type];
+  let diamond = [];
+  for(let index = 0; index<array.length; index++) {
+    diamond[index] = array[index];
+  }
+  diamond = diamond.join('\n');
+  return diamond;
 }
 
 exports.draw_Diamond = draw_Diamond;
