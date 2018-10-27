@@ -37,25 +37,23 @@ const createAlternatingRectangle = function(width,height) {
 }
 
 const createLeftTriangle=function(height) {
-  let output="";
+  let triangle = [];
   for(let heightLimit=1; heightLimit<=height; heightLimit++) {
-    let width=1;
-    output=output+generatePattern(width,heightLimit+1,"*");
-    output=output+"\n";
+    let width=0;
+    triangle[ heightLimit-1 ] = generatePattern(width,heightLimit,"*");
   }
-  return(output);
+  return triangle;
 }
 
 const createRightTriangle=function(height) {
   let output="";
+  let triangle = [];
   for(let heightLimit=1; heightLimit<=height; heightLimit++) {
     let blanks=height-heightLimit;
     let width=heightLimit;
-    output=output+generatePattern(1,blanks+1," ");
-    output=output+generatePattern(1,width+1,"*");
-    output=output+"\n";
+    triangle[heightLimit-1] = generatePattern(1,blanks+1," ").concat(generatePattern(1,width+1,"*"));
   }
-  return(output);
+  return triangle;
 }
 
 const filledFirstHalf = function(height) {
@@ -178,8 +176,9 @@ const draw_Triangle = function(patternInfo) {
   let triangleType = {};
   triangleType['left'] = createLeftTriangle(height);
   triangleType['right'] = createRightTriangle(height);
-
-  return triangleType[type];
+  let triangle = triangleType[type];
+  triangle = triangle.join('\n');
+  return triangle;
 }
 
 const draw_Diamond = function(patternInfo) {
