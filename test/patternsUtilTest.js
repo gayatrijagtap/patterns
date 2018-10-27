@@ -1,10 +1,10 @@
 const assert = require('assert');
 
-const { generatePattern } = require('../src/patternsUtil.js');
-assert.equal(generatePattern(0,1,'*'),'*');
-assert.equal(generatePattern(0,2,'$'),'$$');
-assert.equal(generatePattern(0,3,'#'),'###');
-assert.equal(generatePattern(0,4,'%'),'%%%%');
+const { repeatChar } = require('../src/patternsUtil.js');
+assert.equal(repeatChar(0,1,'*'),'*');
+assert.equal(repeatChar(0,2,'$'),'$$');
+assert.equal(repeatChar(0,3,'#'),'###');
+assert.equal(repeatChar(0,4,'%'),'%%%%');
 
 const { joinLines } = require('../src/patternsUtil.js');
 assert.equal(joinLines('*','*','*'),'***');

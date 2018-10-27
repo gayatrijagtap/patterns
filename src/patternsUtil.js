@@ -1,4 +1,4 @@
-const generatePattern = function(start,limit,character) {
+const repeatChar = function(start,limit,character) {
   let output = "";
   while(start<limit) {
     output=output+character;
@@ -7,7 +7,7 @@ const generatePattern = function(start,limit,character) {
   return(output);
 }
 
-exports.generatePattern = generatePattern;
+exports.repeatChar = repeatChar;
 
 const joinLines = function(prev,current,seperator) {
   return(seperator+prev+current);
