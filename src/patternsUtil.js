@@ -1,10 +1,5 @@
-const repeatChar = function(start,limit,character) {
-  let output = "";
-  while(start<limit) {
-    output=output+character;
-    start++;
-  }
-  return(output);
+const repeatChar = function(times,character) {
+  return (new Array(times).fill(character).join(''));
 }
 
 exports.repeatChar = repeatChar;

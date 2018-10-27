@@ -5,7 +5,7 @@ const { generateLine } = require('./patternsUtil.js');
 const createFilledRectangle = function(width,height) {
   let rectangle = [];
   for (let heightLimit = 0; heightLimit<height; heightLimit++ ) {
-    rectangle[ heightLimit ] = repeatChar(0,width,"*");
+    rectangle[ heightLimit ] = repeatChar(width,"*");
   }
   return rectangle;
 }
@@ -13,13 +13,13 @@ const createFilledRectangle = function(width,height) {
 const createEmptyRectangle = function(width,height) {
   let rectangle = [];
   let heightLimit=0;
-  rectangle[ heightLimit ] = repeatChar(0,width,"*");
+  rectangle[ heightLimit ] = repeatChar(width,"*");
 
   for( heightLimit = 1; heightLimit<height-1; heightLimit++ ) {
-    rectangle[ heightLimit ] = "*"+repeatChar(1,width-1," ")+"*";
+    rectangle[ heightLimit ] = "*"+repeatChar(width-2," ")+"*";
   }
   if(heightLimit < height){
-    rectangle[ heightLimit ] = repeatChar(0,width,"*");
+    rectangle[ heightLimit ] = repeatChar(width,"*");
   }
   return rectangle;
 }
@@ -27,10 +27,10 @@ const createEmptyRectangle = function(width,height) {
 const createAlternatingRectangle = function(width,height) {
   let rectangle = [];
   for ( let heightLimit = 0; heightLimit<height; heightLimit++ ) {
-    rectangle[ heightLimit ] = repeatChar(0,width,"*");
+    rectangle[ heightLimit ] = repeatChar(width,"*");
     heightLimit++;
     if(heightLimit<height) {
-      rectangle[ heightLimit ] = repeatChar(0,width,"-");
+      rectangle[ heightLimit ] = repeatChar(width,"-");
     }
   }
   return rectangle;
@@ -40,7 +40,7 @@ const createLeftTriangle=function(height) {
   let triangle = [];
   for(let heightLimit=1; heightLimit<=height; heightLimit++) {
     let width=0;
-    triangle[ heightLimit-1 ] = repeatChar(width,heightLimit,"*");
+    triangle[ heightLimit-1 ] = repeatChar(heightLimit,"*");
   }
   return triangle;
 }
@@ -51,7 +51,7 @@ const createRightTriangle=function(height) {
   for(let heightLimit=1; heightLimit<=height; heightLimit++) {
     let blanks=height-heightLimit;
     let width=heightLimit;
-    triangle[heightLimit-1] = repeatChar(1,blanks+1," ").concat(repeatChar(1,width+1,"*"));
+    triangle[heightLimit-1] = repeatChar(blanks,' ')+repeatChar(width,'*');
   }
   return triangle;
 }
