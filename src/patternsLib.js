@@ -3,42 +3,37 @@ const { joinLines } = require('./patternsUtil.js');
 const { generateLine } = require('./patternsUtil.js');
 
 const createFilledRectangle = function(width,height) {
-  let output = "";
-  let heightLimit = 0;
-  while(heightLimit<height) {
-    output=joinLines(output,generatePattern(0,width,"*"),"\n");
-    heightLimit++;
+  let rectangle = [];
+  for (let heightLimit = 0; heightLimit<height; heightLimit++ ) {
+    rectangle[ heightLimit ] = generatePattern(0,width,"*");
   }
-  return(output);
+  return rectangle;
 }
 
 const createEmptyRectangle = function(width,height) {
-  let output = "";
-  let heightLimit=1;
-  output=joinLines(output,generatePattern(0,width,"*"),"\n");
-  heightLimit++;
-  while(heightLimit<height) {
-    output=output+"*"+generatePattern(1,width-1," ")+"*"+"\n"
-    heightLimit++;
+  let rectangle = [];
+  let heightLimit=0;
+  rectangle[ heightLimit ] = generatePattern(0,width,"*");
+
+  for( heightLimit = 1; heightLimit<height-1; heightLimit++ ) {
+    rectangle[ heightLimit ] = "*"+generatePattern(1,width-1," ")+"*";
   }
-  if(heightLimit <= height){
-    output=joinLines(output,generatePattern(0,width,"*"),"");
+  if(heightLimit < height){
+    rectangle[ heightLimit ] = generatePattern(0,width,"*");
   }
-  return(output);
+  return rectangle;
 }
 
 const createAlternatingRectangle = function(width,height) {
-  let output = "";
-  let heightLimit = 1;
-  while(heightLimit<=height) {
-    output=joinLines(output,generatePattern(0,width,"*"),"\n");
+  let rectangle = [];
+  for ( let heightLimit = 0; heightLimit<height; heightLimit++ ) {
+    rectangle[ heightLimit ] = generatePattern(0,width,"*");
     heightLimit++;
-    if(heightLimit<=height) {
-      output=joinLines(output,generatePattern(0,width,"-"),"\n");
-      heightLimit++;
+    if(heightLimit<height) {
+      rectangle[ heightLimit ] = generatePattern(0,width,"-");
     }
   }
-  return(output);
+  return rectangle;
 }
 
 const createLeftTriangle=function(height) {
@@ -172,7 +167,9 @@ const draw_Rectangle = function(patternInfo) {
   rectangleType['filled'] = createFilledRectangle(height,width);  rectangleType['empty'] = createEmptyRectangle(height,width);
   rectangleType['alternating'] = createAlternatingRectangle(height,width);
 
-  return rectangleType[type];
+  let rectangle = rectangleType[type];
+  rectangle = rectangle.join('\n');
+  return rectangle;
 }
 
 const draw_Triangle = function(patternInfo) {
