@@ -8,9 +8,9 @@ assert.equal(generatePattern(0,4,'%'),'%%%%');
 
 const { joinLines } = require('../src/patternsUtil.js');
 assert.equal(joinLines('*','*','*'),'***');
-assert.equal(joinLines('**','**','#'),'****#');
-assert.equal(joinLines('#','#',' '),'## ');
-assert.equal(joinLines('##','##','\n'),'####\n');
+assert.equal(joinLines('**','**','#'),'#****');
+assert.equal(joinLines('#','#',' '),' ##');
+assert.equal(joinLines('##','##','\n'),'\n####');
 
 const { generateLine } = require('../src/patternsUtil.js');
 assert.equal(generateLine(1,'*'),'*');

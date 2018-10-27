@@ -10,7 +10,7 @@ const generatePattern = function(start,limit,character) {
 exports.generatePattern = generatePattern;
 
 const joinLines = function(prev,current,seperator) {
-  return(prev+current+seperator);
+  return(seperator+prev+current);
 }
 
 exports.joinLines = joinLines;
