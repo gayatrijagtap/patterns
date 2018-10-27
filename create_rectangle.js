@@ -1,4 +1,4 @@
-draw_Rectangle = require('./src/patternsLib.js').draw_Rectangle;
+const { draw_Rectangle } = require('./src/patternsLib.js');
 const { getPatternInfo } = require('./src/patternsUtil.js');
 
 const main = function() {

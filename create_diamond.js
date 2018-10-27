@@ -1,4 +1,4 @@
-const draw_Diamond = require('./src/patternsLib.js').draw_Diamond;
+const { draw_Diamond } = require('./src/patternsLib.js');
 const { getPatternInfo } = require('./src/patternsUtil.js');
 
 const main = function() {

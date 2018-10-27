@@ -1,4 +1,4 @@
-const draw_Triangle = require('./src/patternsLib.js').draw_Triangle;
+const { draw_Triangle } = require('./src/patternsLib.js');
 const { getPatternInfo } = require('./src/patternsUtil.js');
 
 const main = function() {
