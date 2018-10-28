@@ -13,18 +13,18 @@ const createEmptyRectangle = function(width,height) {
   rectangle[height-1] = repeatChar(width,'*');
 
   for( let index = 1; index<height-1; index++ ) {
-    rectangle.push(addCharAtEdges('*','*',repeatChar(width-2," ")));
+    rectangle[ index ] = addCharAtEdges('*','*',repeatChar(width-2," "));
   }
   return rectangle;
 }
 
 const createAlternatingRectangle = function(width,height) {
   let rectangle = [];
-  for ( let heightLimit = 0; heightLimit<height; heightLimit++ ) {
-    rectangle[ heightLimit ] = repeatChar(width,"*");
-    heightLimit++;
-    if(heightLimit<height) {
-      rectangle[ heightLimit ] = repeatChar(width,"-");
+  for ( let index = 0; index < height; index++ ) {
+    rectangle.push(repeatChar(width,"*"));
+    index++;
+    if( index < height ) {
+      rectangle.push(repeatChar(width,"-"));
     }
   }
   return rectangle;
