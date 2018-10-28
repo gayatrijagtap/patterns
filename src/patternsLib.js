@@ -33,18 +33,17 @@ const createAlternatingRectangle = function(width,height) {
 const createLeftTriangle=function(height) {
   let triangle = [];
   for(let rowWidth=1; rowWidth <= height; rowWidth++) {
-    triangle.push(repeatChar(rowWidth,"*"));
+    let blanks=height-rowWidth;
+    triangle.push(repeatChar(rowWidth,"*")+repeatChar(blanks,' '));
   }
   return triangle;
 }
 
 const createRightTriangle=function(height) {
-  let output="";
   let triangle = [];
-  for(let heightLimit=1; heightLimit<=height; heightLimit++) {
-    let blanks=height-heightLimit;
-    let width=heightLimit;
-    triangle[heightLimit-1] = repeatChar(blanks,' ')+repeatChar(width,'*');
+  for(let rowWidth=1; rowWidth<=height; rowWidth++) {
+    let blanks=height-rowWidth;
+    triangle.push(repeatChar(blanks,' ')+repeatChar(rowWidth,'*'));
   }
   return triangle;
 }
