@@ -35,3 +35,13 @@ const addCharAtEdges = function( startEdgeChar,endEdgeChar,text ) {
 }
 
 exports.addCharAtEdges = addCharAtEdges;
+
+const mirrorPattern = function(pattern) {
+  let mirroredPattern = [];
+  for (let index = 0; index<pattern.length; index++) {
+    mirroredPattern.unshift(pattern[index]);
+  }
+  return mirroredPattern;
+}
+
+exports.mirrorPattern = mirrorPattern;

@@ -29,3 +29,9 @@ assert.equal(addCharAtEdges('*','*','hello'),'*hello*');
 assert.equal(addCharAtEdges('#','*','hello'),'#hello*');
 assert.equal(addCharAtEdges(' ',' ','hello'),' hello ');
 assert.equal(addCharAtEdges('*',' ','hello'),'*hello ');
+
+const { mirrorPattern } = require('../src/patternsUtil.js');
+assert.deepEqual(mirrorPattern(['*','**']),['**','*']);
+assert.deepEqual(mirrorPattern([' *','**']),['**',' *']);
+assert.deepEqual(mirrorPattern(['*','**','***']),['***','**','*']);
+assert.deepEqual(mirrorPattern(['  *',' **','***']),['***',' **','  *']);
