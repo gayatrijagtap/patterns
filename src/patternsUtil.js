@@ -49,10 +49,10 @@ exports.mirrorPattern = mirrorPattern;
 const createDiamondFirstHalf = function(height,startEdgeChar,middleEdgeChar,endEdgeChar) {
   let numOfSpaces = Math.ceil(height/2-1);
   let diamond = [];
-  diamond.push(repeatChar(numOfSpaces," ")+'*');
+  diamond.push(repeatChar(numOfSpaces," ")+'*'+repeatChar(numOfSpaces," "));
   for(let lineNum=1; lineNum<height-2; lineNum+=2) {
     numOfSpaces--;
-    diamond.push(repeatChar(numOfSpaces," ")+startEdgeChar+repeatChar(lineNum,middleEdgeChar)+endEdgeChar);
+    diamond.push(repeatChar(numOfSpaces," ")+startEdgeChar+repeatChar(lineNum,middleEdgeChar)+endEdgeChar+repeatChar(numOfSpaces," "));
   }
   numOfSpaces--;
   diamond.push(repeatChar(numOfSpaces," ")+'*'+repeatChar(height-2,middleEdgeChar)+'*');
@@ -65,10 +65,10 @@ const createDiamondSecondHalf = function(height,startEdgeChar,middleEdgeChar,end
   let numOfSpaces = 1;
   let diamond = [];
   for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    diamond.push(repeatChar(numOfSpaces," ")+startEdgeChar+repeatChar(lineNum,middleEdgeChar)+endEdgeChar);
+    diamond.push(repeatChar(numOfSpaces," ")+startEdgeChar+repeatChar(lineNum,middleEdgeChar)+endEdgeChar+repeatChar(numOfSpaces," "));
     numOfSpaces++;
   }
-  diamond.push(repeatChar(numOfSpaces," ")+"*");
+  diamond.push(repeatChar(numOfSpaces," ")+"*"+repeatChar(numOfSpaces," "));
   return diamond;
 }
 
