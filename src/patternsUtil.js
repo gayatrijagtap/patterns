@@ -73,3 +73,19 @@ const createDiamondSecondHalf = function(height,startEdgeChar,middleEdgeChar,end
 }
 
 exports.createDiamondSecondHalf = createDiamondSecondHalf;
+
+const createTriangle = function(triangleType,height) {
+  let triangle = [];
+  for(let rowWidth=1; rowWidth<=height; rowWidth++) {
+    let blanks=height-rowWidth;
+    if(triangleType == 'right') {
+      triangle.push(repeatChar(blanks,' ')+repeatChar(rowWidth,'*'));
+    }
+    if(triangleType == 'left') {
+      triangle.push(repeatChar(rowWidth,"*")+repeatChar(blanks,' '));
+    }
+  }
+  return triangle;
+}
+
+exports.createTriangle = createTriangle;

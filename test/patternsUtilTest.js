@@ -44,3 +44,9 @@ assert.deepEqual(createDiamondFirstHalf(5,'*','*','*'),[ '  *', ' ***', '*****' 
 const { createDiamondSecondHalf } = require('../src/patternsUtil.js');
 assert.deepEqual(createDiamondSecondHalf(5,'\\',' ','/'),[ ' \\ /', '  *' ]);
 assert.deepEqual(createDiamondSecondHalf(5,'*','*','*'),[ ' ***', '  *' ]);
+
+const { createTriangle } = require('../src/patternsUtil.js');
+assert.deepEqual(createTriangle('left',3),[ '*  ', '** ', '***' ]);
+assert.deepEqual(createTriangle('right',3),[ '  *', ' **', '***' ]);
+assert.deepEqual(createTriangle('left',1),['*']);
+assert.deepEqual(createTriangle('right',1),['*']);
