@@ -32,9 +32,8 @@ const createAlternatingRectangle = function(width,height) {
 
 const createLeftTriangle=function(height) {
   let triangle = [];
-  for(let heightLimit=1; heightLimit<=height; heightLimit++) {
-    let width=0;
-    triangle[ heightLimit-1 ] = repeatChar(heightLimit,"*");
+  for(let rowWidth=1; rowWidth <= height; rowWidth++) {
+    triangle.push(repeatChar(rowWidth,"*"));
   }
   return triangle;
 }
