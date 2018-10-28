@@ -29,3 +29,9 @@ const getPatternInfo = function(userArgs) {
 }
 
 exports.getPatternInfo = getPatternInfo;
+
+const addCharAtEdges = function( startEdgeChar,endEdgeChar,text ) {
+  return startEdgeChar+text+endEdgeChar;
+}
+
+exports.addCharAtEdges = addCharAtEdges;

@@ -23,3 +23,9 @@ assert.deepEqual(getPatternInfo([,,'filled',5,5]),{type:'filled',height:5,width:
 assert.deepEqual(getPatternInfo([,,'empty',2,2]),{type:'empty',height:2,width:2});
 assert.deepEqual(getPatternInfo([,,'alternating',5,5]),{type:'alternating',height:5,width:5});
 assert.deepEqual(getPatternInfo([,,'filled',1,1]),{type:'filled',height:1,width:1});
+
+const { addCharAtEdges } = require('../src/patternsUtil.js');
+assert.equal(addCharAtEdges('*','*','hello'),'*hello*');
+assert.equal(addCharAtEdges('#','*','hello'),'#hello*');
+assert.equal(addCharAtEdges(' ',' ','hello'),' hello ');
+assert.equal(addCharAtEdges('*',' ','hello'),'*hello ');
