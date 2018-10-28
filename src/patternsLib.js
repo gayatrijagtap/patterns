@@ -59,42 +59,18 @@ const mirrorRightTriangle = function(height) {
   return mirrorPattern(createRightTriangle(height));
 }
 
-const filledFirstHalf = function(height) {
-  return createDiamondFirstHalf(height,'*','*','*');
-}
-
-const filledSecondHalf = function(height) {
-  return createDiamondSecondHalf(height,'*','*','*'); 
-}
-
 const createFilledDiamond = function(height) {
-  let diamond = filledFirstHalf(height).concat(filledSecondHalf(height));
+  let diamond = createDiamondFirstHalf(height,'*','*','*').concat(createDiamondSecondHalf(height,'*','*','*'));
   return diamond;
-}
-
-const hollowFirstHalf = function(height) {
-  return createDiamondFirstHalf(height,'*',' ','*');
-}
-
-const hollowSecondHalf = function(height) {
-  return createDiamondSecondHalf(height,'*',' ','*');
 }
 
 const createHollowDiamond = function(height) {
-  let diamond = hollowFirstHalf(height).concat(hollowSecondHalf(height));
+  let diamond = createDiamondFirstHalf(height,'*',' ','*').concat(createDiamondSecondHalf(height,'*',' ','*'));
   return diamond;
 }
 
-const angledFirstHalf = function(height) {
-  return createDiamondFirstHalf(height,'/',' ','\\');
-}
-
-const angledSecondHalf = function(height) {
-  return createDiamondSecondHalf(height,'\\',' ','/');
-}
-
 const createAngledDiamond = function(height) {
-  let diamond = angledFirstHalf(height).concat(angledSecondHalf(height));
+  let diamond = createDiamondFirstHalf(height,'/',' ','\\').concat(createDiamondSecondHalf(height,'\\',' ','/'));
   return diamond;
 }
 
