@@ -1,6 +1,7 @@
 const { repeatChar } = require('./patternsUtil.js');
 const { joinLines } = require('./patternsUtil.js');
 const { addCharAtEdges } = require('./patternsUtil.js');
+const { mirrorPattern } = require('./patternsUtil.js');
 
 const createFilledRectangle = function(width,height) {
   let rectangle = new Array(height).fill(repeatChar(width,'*'));
@@ -39,6 +40,10 @@ const createLeftTriangle=function(height) {
   return triangle;
 }
 
+const mirrorLeftTriangle = function(height) {
+  return mirrorPattern(createLeftTriangle(height));
+}
+
 const createRightTriangle=function(height) {
   let triangle = [];
   for(let rowWidth=1; rowWidth<=height; rowWidth++) {
@@ -48,15 +53,16 @@ const createRightTriangle=function(height) {
   return triangle;
 }
 
+const mirrorRightTriangle = function(height) {
+  return mirrorPattern(createRightTriangle(height));
+}
+
 const filledFirstHalf = function(height) {
   let numOfSpaces = Math.ceil((height/2)-1);
   let diamond = [];
-  let index = 0;
   for(let lineNum=1; lineNum<=height; lineNum+=2) {
-    diamond[ index ] = repeatChar(numOfSpaces," ");
+    diamond.push(repeatChar(numOfSpaces," ").concat(repeatChar(lineNum,'*')));
     numOfSpaces--;
-    diamond[ index ] = diamond[ index ].concat(repeatChar(lineNum,"*"));
-    index++;
   }
   return diamond;
 }
@@ -64,28 +70,15 @@ const filledFirstHalf = function(height) {
 const filledSecondHalf = function(height) {
   let numOfSpaces = 1;
   let diamond = [];
-  let index = 0;
   for(let lineNum=height-2; lineNum>0; lineNum-=2) {
-    diamond[index] = repeatChar(numOfSpaces," ");
+    diamond.push(repeatChar(numOfSpaces," ").concat(repeatChar(lineNum,"*")));
     numOfSpaces++;
-    diamond[index] = diamond[index].concat(repeatChar(lineNum,"*"));
-    index++;
   }
   return diamond;
 }
 
 const createFilledDiamond = function(height) {
-  if(height%2==0) {
-    height = height - 1;
-  }
-  if(height<3) {
-    return "*";
-  }
-  let diamond = filledFirstHalf(height);
-  let diamondSecondHalf = filledSecondHalf(height);
-  for( let index = 0; index<diamondSecondHalf.length; index++ ) {
-    diamond.push(diamondSecondHalf[index]);
-  }
+  let diamond = filledFirstHalf(height).concat(filledSecondHalf(height));
   return diamond;
 }
 
@@ -199,6 +192,12 @@ const draw_Triangle = function(patternInfo) {
 
 const draw_Diamond = function(patternInfo) {
   let {type,height} = patternInfo;
+  if(height%2==0) {
+    height--;
+  }
+  if(height<3) {
+    return '*';
+  }
 
   let diamondType = {};
   diamondType['filled'] = createFilledDiamond(height);
