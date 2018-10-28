@@ -35,3 +35,12 @@ assert.deepEqual(mirrorPattern(['*','**']),['**','*']);
 assert.deepEqual(mirrorPattern([' *','**']),['**',' *']);
 assert.deepEqual(mirrorPattern(['*','**','***']),['***','**','*']);
 assert.deepEqual(mirrorPattern(['  *',' **','***']),['***',' **','  *']);
+
+const { createDiamondFirstHalf } = require('../src/patternsUtil.js');
+assert.deepEqual(createDiamondFirstHalf(5,'/',' ','\\'),[ '  *', ' / \\', '*   *' ]);
+assert.deepEqual(createDiamondFirstHalf(5,'*','*','*'),[ '  *', ' ***', '*****' ]);
+
+
+const { createDiamondSecondHalf } = require('../src/patternsUtil.js');
+assert.deepEqual(createDiamondSecondHalf(5,'\\',' ','/'),[ ' \\ /', '  *' ]);
+assert.deepEqual(createDiamondSecondHalf(5,'*','*','*'),[ ' ***', '  *' ]);
