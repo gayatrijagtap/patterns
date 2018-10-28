@@ -1,5 +1,6 @@
 const { repeatChar } = require('./patternsUtil.js');
 const { joinLines } = require('./patternsUtil.js');
+const { addCharAtEdges } = require('./patternsUtil.js');
 
 const createFilledRectangle = function(width,height) {
   let rectangle = new Array(height).fill(repeatChar(width,'*'));
@@ -8,14 +9,11 @@ const createFilledRectangle = function(width,height) {
 
 const createEmptyRectangle = function(width,height) {
   let rectangle = [];
-  let heightLimit=0;
-  rectangle[ heightLimit ] = repeatChar(width,"*");
+  rectangle.unshift(repeatChar(width,"*"));
+  rectangle[height-1] = repeatChar(width,'*');
 
-  for( heightLimit = 1; heightLimit<height-1; heightLimit++ ) {
-    rectangle[ heightLimit ] = "*"+repeatChar(width-2," ")+"*";
-  }
-  if(heightLimit < height){
-    rectangle[ heightLimit ] = repeatChar(width,"*");
+  for( let index = 1; index<height-1; index++ ) {
+    rectangle.push(addCharAtEdges('*','*',repeatChar(width-2," ")));
   }
   return rectangle;
 }
