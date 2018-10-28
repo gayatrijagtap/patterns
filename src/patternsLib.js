@@ -85,42 +85,27 @@ const createFilledDiamond = function(height) {
 const hollowFirstHalf = function(height) {
   let numOfSpaces = Math.ceil(height/2);
   let diamond = [];
-  let index = 0;
-  diamond[index] = repeatChar(numOfSpaces," ")+"*";
+  diamond.push(repeatChar(numOfSpaces," ")+"*");
   for(let lineNum=1; lineNum<height; lineNum+=2) {
-    index++;
     numOfSpaces--;
-    diamond[ index ] = repeatChar(numOfSpaces," ")+"*"+repeatChar(lineNum," ")+"*";
+    diamond.push(repeatChar(numOfSpaces," ")+"*"+repeatChar(lineNum," ")+"*");
   }
   return diamond;
 }
 
 const hollowSecondHalf = function(height) {
   let numOfSpaces = 2;
-  let result = "";
   let diamond = [];
-  let index = 0;
   for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    diamond[index] = repeatChar(numOfSpaces," ")+"*"+repeatChar(lineNum," ")+"*";
+    diamond.push(repeatChar(numOfSpaces," ")+"*"+repeatChar(lineNum," ")+"*");
     numOfSpaces++;
-    index++;
   }
-  diamond[index] = repeatChar(numOfSpaces," ")+"*";
+  diamond.push(repeatChar(numOfSpaces," ")+"*");
   return diamond;
 }
 
 const createHollowDiamond = function(height) {
-  if(height%2==0) {
-    height = height - 1;
-  }
-  if(height<3) {
-    return "*";
-  }
-  let diamond = hollowFirstHalf(height);
-  let diamondSecondHalf = hollowSecondHalf(height);
-  for (let index = 0; index<diamondSecondHalf.length; index++) {
-    diamond.push(diamondSecondHalf[index]);
-  }
+  let diamond = hollowFirstHalf(height).concat(hollowSecondHalf(height));
   return diamond;
 }
 
