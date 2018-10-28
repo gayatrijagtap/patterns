@@ -2,6 +2,8 @@ const { repeatChar } = require('./patternsUtil.js');
 const { joinLines } = require('./patternsUtil.js');
 const { addCharAtEdges } = require('./patternsUtil.js');
 const { mirrorPattern } = require('./patternsUtil.js');
+const { createDiamondFirstHalf } = require('./patternsUtil.js');
+const { createDiamondSecondHalf } = require('./patternsUtil.js');
 
 const createFilledRectangle = function(width,height) {
   let rectangle = new Array(height).fill(repeatChar(width,'*'));
@@ -58,23 +60,11 @@ const mirrorRightTriangle = function(height) {
 }
 
 const filledFirstHalf = function(height) {
-  let numOfSpaces = Math.ceil((height/2)-1);
-  let diamond = [];
-  for(let lineNum=1; lineNum<=height; lineNum+=2) {
-    diamond.push(repeatChar(numOfSpaces," ").concat(repeatChar(lineNum,'*')));
-    numOfSpaces--;
-  }
-  return diamond;
+  return createDiamondFirstHalf(height,'*','*','*');
 }
 
 const filledSecondHalf = function(height) {
-  let numOfSpaces = 1;
-  let diamond = [];
-  for(let lineNum=height-2; lineNum>0; lineNum-=2) {
-    diamond.push(repeatChar(numOfSpaces," ").concat(repeatChar(lineNum,"*")));
-    numOfSpaces++;
-  }
-  return diamond;
+  return createDiamondSecondHalf(height,'*','*','*'); 
 }
 
 const createFilledDiamond = function(height) {
@@ -83,25 +73,11 @@ const createFilledDiamond = function(height) {
 }
 
 const hollowFirstHalf = function(height) {
-  let numOfSpaces = Math.ceil(height/2);
-  let diamond = [];
-  diamond.push(repeatChar(numOfSpaces," ")+"*");
-  for(let lineNum=1; lineNum<height; lineNum+=2) {
-    numOfSpaces--;
-    diamond.push(repeatChar(numOfSpaces," ")+"*"+repeatChar(lineNum," ")+"*");
-  }
-  return diamond;
+  return createDiamondFirstHalf(height,'*',' ','*');
 }
 
 const hollowSecondHalf = function(height) {
-  let numOfSpaces = 2;
-  let diamond = [];
-  for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    diamond.push(repeatChar(numOfSpaces," ")+"*"+repeatChar(lineNum," ")+"*");
-    numOfSpaces++;
-  }
-  diamond.push(repeatChar(numOfSpaces," ")+"*");
-  return diamond;
+  return createDiamondSecondHalf(height,'*',' ','*');
 }
 
 const createHollowDiamond = function(height) {
@@ -110,27 +86,11 @@ const createHollowDiamond = function(height) {
 }
 
 const angledFirstHalf = function(height) {
-  let numOfSpaces = Math.ceil(height/2);
-  let diamond = [];
-  diamond.push(repeatChar(numOfSpaces," ")+"*");
-  for(let lineNum=1; lineNum<height-2; lineNum+=2) {
-    numOfSpaces--;
-    diamond.push(repeatChar(numOfSpaces," ")+"/"+repeatChar(lineNum," ")+"\\");
-  }
-  numOfSpaces--;
-  diamond.push(repeatChar(numOfSpaces," ")+"*"+repeatChar(height-2," ")+"*");
-  return diamond;
+  return createDiamondFirstHalf(height,'/',' ','\\');
 }
 
 const angledSecondHalf = function(height) {
-  let numOfSpaces = 2;
-  let diamond = [];
-  for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    diamond.push(repeatChar(numOfSpaces," ")+"\\"+repeatChar(lineNum," ")+"/");
-    numOfSpaces++;
-  }
-  diamond.push(repeatChar(numOfSpaces," ")+"*");
-  return diamond;
+  return createDiamondSecondHalf(height,'\\',' ','/');
 }
 
 const createAngledDiamond = function(height) {
