@@ -1,12 +1,8 @@
 const { repeatChar } = require('./patternsUtil.js');
 const { joinLines } = require('./patternsUtil.js');
-const { generateLine } = require('./patternsUtil.js');
 
 const createFilledRectangle = function(width,height) {
-  let rectangle = [];
-  for (let heightLimit = 0; heightLimit<height; heightLimit++ ) {
-    rectangle[ heightLimit ] = repeatChar(width,"*");
-  }
+  let rectangle = new Array(height).fill(repeatChar(width,'*'));
   return rectangle;
 }
 
@@ -57,13 +53,13 @@ const createRightTriangle=function(height) {
 }
 
 const filledFirstHalf = function(height) {
-  let numOfSpaces = (height/2)-1;
+  let numOfSpaces = Math.ceil((height/2)-1);
   let diamond = [];
   let index = 0;
   for(let lineNum=1; lineNum<=height; lineNum+=2) {
-    diamond[ index ] = generateLine(numOfSpaces," ");
+    diamond[ index ] = repeatChar(numOfSpaces," ");
     numOfSpaces--;
-    diamond[ index ] = diamond[ index ].concat(generateLine(lineNum,"*"));
+    diamond[ index ] = diamond[ index ].concat(repeatChar(lineNum,"*"));
     index++;
   }
   return diamond;
@@ -74,9 +70,9 @@ const filledSecondHalf = function(height) {
   let diamond = [];
   let index = 0;
   for(let lineNum=height-2; lineNum>0; lineNum-=2) {
-    diamond[index] = generateLine(numOfSpaces," ");
+    diamond[index] = repeatChar(numOfSpaces," ");
     numOfSpaces++;
-    diamond[index] = diamond[index].concat(generateLine(lineNum,"*"));
+    diamond[index] = diamond[index].concat(repeatChar(lineNum,"*"));
     index++;
   }
   return diamond;
@@ -101,11 +97,11 @@ const hollowFirstHalf = function(height) {
   let numOfSpaces = Math.ceil(height/2);
   let diamond = [];
   let index = 0;
-  diamond[index] = generateLine(numOfSpaces," ")+"*";
+  diamond[index] = repeatChar(numOfSpaces," ")+"*";
   for(let lineNum=1; lineNum<height; lineNum+=2) {
     index++;
     numOfSpaces--;
-    diamond[ index ] = generateLine(numOfSpaces," ")+"*"+generateLine(lineNum," ")+"*";
+    diamond[ index ] = repeatChar(numOfSpaces," ")+"*"+repeatChar(lineNum," ")+"*";
   }
   return diamond;
 }
@@ -116,11 +112,11 @@ const hollowSecondHalf = function(height) {
   let diamond = [];
   let index = 0;
   for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    diamond[index] = generateLine(numOfSpaces," ")+"*"+generateLine(lineNum," ")+"*";
+    diamond[index] = repeatChar(numOfSpaces," ")+"*"+repeatChar(lineNum," ")+"*";
     numOfSpaces++;
     index++;
   }
-  diamond[index] = generateLine(numOfSpaces," ")+"*";
+  diamond[index] = repeatChar(numOfSpaces," ")+"*";
   return diamond;
 }
 
@@ -143,14 +139,14 @@ const angledFirstHalf = function(height) {
   let numOfSpaces = Math.ceil(height/2);
   let diamond = [];
   let index = 0;
-  diamond[index] = generateLine(numOfSpaces," ")+"*";
+  diamond[index] = repeatChar(numOfSpaces," ")+"*";
   for(let lineNum=1; lineNum<height-2; lineNum+=2) {
     numOfSpaces--;
     index++;
-    diamond[index] = generateLine(numOfSpaces," ")+"/"+generateLine(lineNum," ")+"\\";
+    diamond[index] = repeatChar(numOfSpaces," ")+"/"+repeatChar(lineNum," ")+"\\";
   }
   numOfSpaces--;
-  diamond[index+1] = generateLine(numOfSpaces," ")+"*"+generateLine(height-2," ")+"*";
+  diamond[index+1] = repeatChar(numOfSpaces," ")+"*"+repeatChar(height-2," ")+"*";
   return diamond;
 }
 
@@ -160,11 +156,11 @@ const angledSecondHalf = function(height) {
   let diamond = [];
   let index = 0;
   for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    diamond[index] = generateLine(numOfSpaces," ")+"\\"+generateLine(lineNum," ")+"/";
+    diamond[index] = repeatChar(numOfSpaces," ")+"\\"+repeatChar(lineNum," ")+"/";
     numOfSpaces++;
     index++;
   }
-  diamond[index] = generateLine(numOfSpaces," ")+"*";
+  diamond[index] = repeatChar(numOfSpaces," ")+"*";
   return diamond;
 }
 
