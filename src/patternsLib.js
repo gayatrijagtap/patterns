@@ -4,6 +4,7 @@ const { addCharAtEdges } = require('./patternsUtil.js');
 const { mirrorPattern } = require('./patternsUtil.js');
 const { createDiamondFirstHalf } = require('./patternsUtil.js');
 const { createDiamondSecondHalf } = require('./patternsUtil.js');
+const { createTriangle } = require('./patternsUtil.js');
 
 const createFilledRectangle = function(width,height) {
   let rectangle = new Array(height).fill(repeatChar(width,'*'));
@@ -34,12 +35,7 @@ const createAlternatingRectangle = function(width,height) {
 }
 
 const createLeftTriangle=function(height) {
-  let triangle = [];
-  for(let rowWidth=1; rowWidth <= height; rowWidth++) {
-    let blanks=height-rowWidth;
-    triangle.push(repeatChar(rowWidth,"*")+repeatChar(blanks,' '));
-  }
-  return triangle;
+  return createTriangle('left',height);
 }
 
 const mirrorLeftTriangle = function(height) {
@@ -47,12 +43,7 @@ const mirrorLeftTriangle = function(height) {
 }
 
 const createRightTriangle=function(height) {
-  let triangle = [];
-  for(let rowWidth=1; rowWidth<=height; rowWidth++) {
-    let blanks=height-rowWidth;
-    triangle.push(repeatChar(blanks,' ')+repeatChar(rowWidth,'*'));
-  }
-  return triangle;
+  return createTriangle('right',height);
 }
 
 const mirrorRightTriangle = function(height) {
