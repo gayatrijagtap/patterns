@@ -112,44 +112,29 @@ const createHollowDiamond = function(height) {
 const angledFirstHalf = function(height) {
   let numOfSpaces = Math.ceil(height/2);
   let diamond = [];
-  let index = 0;
-  diamond[index] = repeatChar(numOfSpaces," ")+"*";
+  diamond.push(repeatChar(numOfSpaces," ")+"*");
   for(let lineNum=1; lineNum<height-2; lineNum+=2) {
     numOfSpaces--;
-    index++;
-    diamond[index] = repeatChar(numOfSpaces," ")+"/"+repeatChar(lineNum," ")+"\\";
+    diamond.push(repeatChar(numOfSpaces," ")+"/"+repeatChar(lineNum," ")+"\\");
   }
   numOfSpaces--;
-  diamond[index+1] = repeatChar(numOfSpaces," ")+"*"+repeatChar(height-2," ")+"*";
+  diamond.push(repeatChar(numOfSpaces," ")+"*"+repeatChar(height-2," ")+"*");
   return diamond;
 }
 
 const angledSecondHalf = function(height) {
   let numOfSpaces = 2;
-  let result = "";
   let diamond = [];
-  let index = 0;
   for(let lineNum=height-4; lineNum>=1; lineNum-=2) {
-    diamond[index] = repeatChar(numOfSpaces," ")+"\\"+repeatChar(lineNum," ")+"/";
+    diamond.push(repeatChar(numOfSpaces," ")+"\\"+repeatChar(lineNum," ")+"/");
     numOfSpaces++;
-    index++;
   }
-  diamond[index] = repeatChar(numOfSpaces," ")+"*";
+  diamond.push(repeatChar(numOfSpaces," ")+"*");
   return diamond;
 }
 
 const createAngledDiamond = function(height) {
-  if(height%2==0) {
-    height = height - 1;
-  }
-  if(height<3) {
-    return "*";
-  }
-  let diamond = angledFirstHalf(height);
-  let diamondSecondHalf = angledSecondHalf(height);
-  for (let index = 0; index<diamondSecondHalf.length; index++) {
-    diamond.push(diamondSecondHalf[index]);
-  }
+  let diamond = angledFirstHalf(height).concat(angledSecondHalf(height));
   return diamond;
 }
 
