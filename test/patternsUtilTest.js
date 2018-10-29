@@ -50,3 +50,9 @@ assert.deepEqual(createTriangle('left',3),[ '*  ', '** ', '***' ]);
 assert.deepEqual(createTriangle('right',3),[ '  *', ' **', '***' ]);
 assert.deepEqual(createTriangle('left',1),['*']);
 assert.deepEqual(createTriangle('right',1),['*']);
+
+const { readUserArgs } = require('../src/patternsUtil.js');
+assert.deepEqual(readUserArgs([,,'filled',5,5,'hollow',5,5]),{type1:'filled',height1:5,width1:5,type2:'hollow',height2:5,width2:5});
+assert.deepEqual(readUserArgs([,,'empty',2,2,'left',3]),{type1:'empty',height1:2,width1:2,type2:'left',height2:3,width2:undefined});
+assert.deepEqual(readUserArgs([,,'alternating',5,5,'right',6]),{type1:'alternating',height1:5,width1:5,type2:'right',height2:6,width2:undefined});
+assert.deepEqual(readUserArgs([,,'filled',1,1,'empty',2,2]),{type1:'filled',height1:1,width1:1,type2:'empty',height2:2,width2:2});

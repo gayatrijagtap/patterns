@@ -89,3 +89,16 @@ const createTriangle = function(triangleType,height) {
 }
 
 exports.createTriangle = createTriangle;
+
+const readUserArgs = function(userArgs) {
+  let patternInfo = {};
+  patternInfo.type1 = userArgs[2];
+  patternInfo.height1 = userArgs[3];
+  patternInfo.width1 = userArgs[4];
+  patternInfo.type2 = userArgs[5];
+  patternInfo.height2 = userArgs[6];
+  patternInfo.width2 = userArgs[7];
+  return patternInfo;
+}
+
+exports.readUserArgs = readUserArgs;
