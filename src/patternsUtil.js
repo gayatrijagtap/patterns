@@ -91,13 +91,22 @@ const createTriangle = function(triangleType,height) {
 exports.createTriangle = createTriangle;
 
 const readUserArgs = function(userArgs) {
-  let patternInfo = {};
-  patternInfo.type1 = userArgs[2];
-  patternInfo.height1 = userArgs[3];
-  patternInfo.width1 = userArgs[4];
-  patternInfo.type2 = userArgs[5];
-  patternInfo.height2 = userArgs[6];
-  patternInfo.width2 = userArgs[7];
+  let patternInfo = {
+                      firstPatternInfo : {},
+                      secondPatternInfo : {}
+                    };
+  patternInfo.firstPatternInfo = {
+                      type : userArgs[2],
+                      height : userArgs[3],
+                      width : userArgs[4]
+                                 };
+
+  patternInfo.secondPatternInfo = {
+                      type : userArgs[5],
+                      height : userArgs[6],
+                      width : userArgs[7]
+                                 };
+
   return patternInfo;
 }
 
