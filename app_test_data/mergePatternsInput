@@ -1,0 +1,4 @@
+left_triangle|2|filled_rectangle|2|2
+filled_rectangle|2|2|filled_rectangle|2|2
+filled_rectangle|2|2|right_triangle|2
+empty_rectangle|2|2|alternating_rectangle|2|2
