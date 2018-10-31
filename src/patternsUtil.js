@@ -78,10 +78,10 @@ const createTriangle = function(triangleType,height) {
   let triangle = [];
   for(let rowWidth=1; rowWidth<=height; rowWidth++) {
     let blanks=height-rowWidth;
-    if(triangleType == 'right') {
+    if(triangleType == 'right_triangle') {
       triangle.push(repeatChar(blanks,' ')+repeatChar(rowWidth,'*'));
     }
-    if(triangleType == 'left') {
+    if(triangleType == 'left_triangle') {
       triangle.push(repeatChar(rowWidth,"*")+repeatChar(blanks,' '));
     }
   }
@@ -91,23 +91,102 @@ const createTriangle = function(triangleType,height) {
 exports.createTriangle = createTriangle;
 
 const readUserArgs = function(userArgs) {
-  let patternInfo = {
-                      firstPatternInfo : {},
-                      secondPatternInfo : {}
-                    };
-  patternInfo.firstPatternInfo = {
-                      type : userArgs[2],
-                      height : userArgs[3],
-                      width : userArgs[4]
-                                 };
+  let pattern1 = userArgs[2].split('_')[1];
+  let pattern2 = '';
+  let patternInfo = [];
+  if(pattern1 == 'rectangle') {
+    patternInfo[0] = {type:userArgs[2],
+                            height:+userArgs[3],
+                            width:+userArgs[4]
+    }
+    patternInfo[1] = {type:userArgs[5],
+                            height:+userArgs[6],
+                            width:+userArgs[7]
+    }
+    pattern2 = userArgs[5];
+  }
 
-  patternInfo.secondPatternInfo = {
-                      type : userArgs[5],
-                      height : userArgs[6],
-                      width : userArgs[7]
-                                 };
+  if(pattern1 != 'rectangle') {
+    patternInfo[0] = {type:userArgs[2],
+                            height:+userArgs[3],
+    }
+    patternInfo[1] = {type:userArgs[4],
+                            height:+userArgs[5],
+                            width:+userArgs[6]
+    }
+    pattern2 = userArgs[4];
+  }
+  patternInfo[2] = pattern1;
+  patternInfo[3] = pattern2;
 
   return patternInfo;
 }
 
 exports.readUserArgs = readUserArgs;
+
+const {draw_Rectangle,draw_Triangle,draw_Diamond} = require('./patternsLib.js');
+
+const drawFirstPattern = function(patternsInfo) {
+  let firstPatternInfo = patternsInfo[0];
+  let patternOne = [];
+  if(patternsInfo[2] == 'rectangle')
+    patternOne = draw_Rectangle(firstPatternInfo);
+  if(patternsInfo[2] == 'triangle')
+    patternOne = draw_Triangle(firstPatternInfo);
+  if(patternsInfo[2] == 'diamond')
+    patternOne = draw_Diamond(firstPatternInfo);
+  return patternOne;
+}
+exports.drawFirstPattern = drawFirstPattern;
+
+const drawSecondPattern = function(patternInfo) {
+  let secondPatternInfo = patternInfo[1];
+  let patternTwo = [];
+  let {type} = secondPatternInfo;
+  type = type.split('_')[1];
+  if(type == 'rectangle') 
+    patternTwo = draw_Rectangle(secondPatternInfo);
+  if(type == 'triangle')
+    patternTwo = draw_Triangle(secondPatternInfo);
+  if(type == 'diamond')
+    patternTwo = draw_Diamond(secondPatternInfo);
+  return patternTwo;
+}
+
+exports.drawSecondPattern = drawSecondPattern;
+
+const mergePatterns = function(firstPattern,secondPattern) {
+  let mergedPattern = [];
+  let shorterPattern,largerPattern,largerLen,shorterLen;
+  if(firstPattern.length <= secondPattern.length) {
+    shorterPattern = firstPattern;
+    largerPattern = secondPattern;
+    shorterLen = firstPattern.length;
+    largerLen = secondPattern.length;
+  } else {
+    shorterPattern = secondPattern;
+    largerPattern = firstPattern;
+    shorterLen = secondPattern.length;
+    largerLen = firstPattern.length;
+  }
+  let width = shorterPattern[0].split('').length;
+  for ( let index = 0; index < largerLen; index++ ) {
+    if(index >= shorterLen) {
+      shorterPattern[index] = repeatChar(width,' ');
+    }
+    mergedPattern[index] = [ firstPattern[index],secondPattern[index] ];
+  }
+  return mergedPattern;
+}
+
+exports.mergePatterns = mergePatterns;
+
+const printPattern = function(pattern) {
+  for(let index = 0; index<pattern.length; index++) {
+    pattern[index] = (pattern[index]).join('  ');
+  }
+  let printedPattern = pattern.join('\n');
+  return printedPattern;
+}
+
+exports.printPattern = printPattern;

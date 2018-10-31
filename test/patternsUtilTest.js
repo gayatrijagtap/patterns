@@ -46,13 +46,16 @@ assert.deepEqual(createDiamondSecondHalf(5,'\\',' ','/'),[ ' \\ / ', '  *  ' ]);
 assert.deepEqual(createDiamondSecondHalf(5,'*','*','*'),[ ' *** ', '  *  ' ]);
 
 const { createTriangle } = require('../src/patternsUtil.js');
-assert.deepEqual(createTriangle('left',3),[ '*  ', '** ', '***' ]);
-assert.deepEqual(createTriangle('right',3),[ '  *', ' **', '***' ]);
-assert.deepEqual(createTriangle('left',1),['*']);
-assert.deepEqual(createTriangle('right',1),['*']);
+assert.deepEqual(createTriangle('left_triangle',3),[ '*  ', '** ', '***' ]);
+assert.deepEqual(createTriangle('right_triangle',3),[ '  *', ' **', '***' ]);
+assert.deepEqual(createTriangle('left_triangle',1),['*']);
+assert.deepEqual(createTriangle('right_triangle',1),['*']);
 
 const { readUserArgs } = require('../src/patternsUtil.js');
-assert.deepEqual(readUserArgs([,,'filled',5,5,'hollow',5,5]),{firstPatternInfo : {type:'filled',height:5,width:5 } , secondPatternInfo : {type:'hollow',height:5,width:5}});
-assert.deepEqual(readUserArgs([,,'empty',2,2,'left',3]),{firstPatternInfo:{type:'empty',height:2,width:2},secondPatternInfo:{type:'left',height:3,width:undefined}});
-assert.deepEqual(readUserArgs([,,'alternating',5,5,'right',6]),{firstPatternInfo:{type:'alternating',height:5,width:5},secondPatternInfo:{type:'right',height:6,width:undefined}});
-assert.deepEqual(readUserArgs([,,'filled',1,1,'empty',2,2]),{firstPatternInfo:{type:'filled',height:1,width:1},secondPatternInfo:{type:'empty',height:2,width:2}});
+assert.deepEqual(readUserArgs([,,'filled_rectangle',5,5,'empty_rectangle',5,5]),[ { type: 'filled_rectangle', height: 5, width: 5 },{ type: 'empty_rectangle', height: 5, width: 5 },'rectangle','empty_rectangle' ]);
+assert.deepEqual(readUserArgs([,,'alternating_rectangle',5,5,'empty_rectangle',5,5]),[ { type: 'alternating_rectangle', height: 5, width: 5 },{ type: 'empty_rectangle', height: 5, width: 5 },'rectangle','empty_rectangle' ]);
+
+
+const { mergePatterns } = require('../src/patternsUtil.js');
+assert.deepEqual(mergePatterns(['*'],['*']),[['*','*']]);
+assert.deepEqual(mergePatterns(['*','*'],['*','*']),[['*','*'],['*','*']]);
